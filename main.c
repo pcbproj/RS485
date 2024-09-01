@@ -1,3 +1,7 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "stm32f4xx.h"
+
 #include "main.h"
 
 /*
@@ -12,20 +16,45 @@
 */
 
 
-/*
-RCC_Init()
-GPIO LEDS
-USART2 - RS485
+void SysTick_Handler(void){		// прервание от Systick таймера, выполняющееся с периодом 1 мкс
 
-*/
+	timer_counter();
+
+}
+
 
 int main(void) {
 
 	RCC_Init();
+	
+	GPIO_Init();
+
+	USART2_Init();
+
+	SysTick_Config(SYSTICK_TIMER_CONST);		// systick period 1 us
+
+	LED1_OFF();
+	LED2_OFF();
+	LED3_OFF();
 
 
 	while(1){
+			
+			Delay_ms(500);
+			LED1_TOGGLE();
+			Delay_ms(500);
+			LED1_TOGGLE();
 
+			Delay_ms(500);
+			LED2_TOGGLE();
+			Delay_ms(500);
+			LED2_TOGGLE();
+
+			Delay_ms(500);
+			LED3_TOGGLE();
+			Delay_ms(500);
+			LED3_TOGGLE();
+			
 
 	}	// while(1)
 }	// main()

@@ -120,8 +120,7 @@ void usart6_send(char data[], uint32_t len) {
 	}
 }
 
-// retarget the C library printf function to the USART 
-//retarget the C library printf function to the USART 
+//retarget the C library printf function to the USART1 
 int __SEGGER_RTL_X_file_write(__SEGGER_RTL_FILE *__stream, const char *__s, unsigned __len) {
   
   // Send string over USART1 in pending mode 

@@ -55,13 +55,17 @@
       <file file_name="main.h" />
       <folder Name="lib">
         <folder Name="src">
-          <file file_name="lib/src/delay.c" />
+          <file file_name="lib/src/delay.c">
+            <configuration Name="Debug" build_exclude_from_build="No" />
+          </file>
           <file file_name="lib/src/gpio.c" />
           <file file_name="lib/src/RCC_init.c" />
           <file file_name="lib/src/usart.c" />
         </folder>
         <folder Name="inc">
-          <file file_name="lib/inc/delay.h" />
+          <file file_name="lib/inc/delay.h">
+            <configuration Name="Debug" build_exclude_from_build="No" />
+          </file>
           <file file_name="lib/inc/gpio.h" />
           <file file_name="lib/inc/usart.h" />
         </folder>
@@ -74,6 +78,18 @@
         <configuration Name="Common" file_type="Assembly" />
       </file>
     </folder>
+    <configuration
+      Name="Debug"
+      c_user_include_directories="$(ProjectDir)/lib/inc;$(ProjectDir)"
+      debug_target_connection="GDB Server"
+      gdb_server_allow_memory_access_during_execution="Yes"
+      gdb_server_autostart_server="No"
+      gdb_server_command_line=""
+      gdb_server_ignore_checksum_errors="No"
+      gdb_server_port="3333"
+      gdb_server_register_access="General and Individual"
+      gdb_server_reset_command="reset halt"
+      gdb_server_type="OpenOCD" />
   </project>
   <configuration
     Name="Debug"
