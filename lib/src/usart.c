@@ -53,6 +53,7 @@ void USART2_Init(void){
 	*/
 
 	USART2 -> BRR |= 0x2D9;	// 115200
+	//USART2 -> BRR |= 0x222E;	// 9600	
 	
 	USART2 -> CR1 |= USART_CR1_TE | USART_CR1_RE;					// Включение приемника и передатчика
 	USART2 -> CR1 &= ~(USART_CR1_M) | ~(USART_CR1_PCE);              // 8-бит, без контроля четности
@@ -95,8 +96,8 @@ void USART6_Init(void){
 
 
 
-void usart1_send(char data[], uint32_t len) {
-	for (uint32_t i=0; i < len; i++){
+void usart1_send(uint8_t data[], uint8_t len) {
+	for (uint8_t i=0; i < len; i++){
 		USART1 -> DR = data[i];
 		while ((USART1 -> SR & USART_SR_TXE) == 0){};
 	}
@@ -104,8 +105,8 @@ void usart1_send(char data[], uint32_t len) {
 
 
 
-void usart2_send(char data[], uint32_t len) {
-	for (uint32_t i=0; i < len; i++){
+void usart2_send(uint8_t data[], uint8_t len) {
+	for (uint8_t i=0; i < len; i++){
 		USART2 -> DR = data[i];
 		while ((USART2 -> SR & USART_SR_TXE) == 0){};
 	}
@@ -113,11 +114,35 @@ void usart2_send(char data[], uint32_t len) {
 
 
 
-void usart6_send(char data[], uint32_t len) {
-	for (uint32_t i=0; i < len; i++){
+void usart6_send(uint8_t data[], uint8_t len) {
+	for (uint8_t i=0; i < len; i++){
 		USART6 -> DR = data[i];
 		while ((USART6 -> SR & USART_SR_TXE) == 0){};
 	}
+}
+
+
+
+uint8_t usart2_receive_byte(uint8_t *rx_byte){
+	uint8_t timer = 0;
+	while(!(USART2->SR & USART_SR_RXNE)){
+		if(timer < 32) timer++;
+		else return USART_ERR;
+	}	
+	*rx_byte = USART2 -> DR;
+	return USART_OK;
+}
+
+
+
+uint8_t usart6_receive_byte(uint8_t *rx_byte){
+	uint8_t timer = 0;
+	while(!(USART6->SR & USART_SR_RXNE)){
+		if(timer < 32) timer++;
+		else return USART_ERR;
+	}	
+	*rx_byte = USART6 -> DR;
+	return USART_OK;
 }
 
 //retarget the C library printf function to the USART1 

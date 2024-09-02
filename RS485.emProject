@@ -61,6 +61,7 @@
           <file file_name="lib/src/gpio.c" />
           <file file_name="lib/src/RCC_init.c" />
           <file file_name="lib/src/usart.c" />
+          <file file_name="lib/src/rs485.c" />
         </folder>
         <folder Name="inc">
           <file file_name="lib/inc/delay.h">
@@ -68,6 +69,7 @@
           </file>
           <file file_name="lib/inc/gpio.h" />
           <file file_name="lib/inc/usart.h" />
+          <file file_name="lib/inc/rs485.h" />
         </folder>
       </folder>
     </folder>

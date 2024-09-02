@@ -5,14 +5,9 @@
 #include "main.h"
 
 /*
-Передача тестовой строки через переходник RS485 - USB от ПК в МК. 
-МК принимает строку и отправляет на нее свой ответ. 
-
-ПК передает строку 8 байт: 0x11 0x22 0x33 0x44 0x55 0x66 0x77 0x88
-МК проверяет. Если разница между байтами = 0x11 и 8 байт длина, то строка верная. 
-и отправляет в ответ ее же.
-Если строка не верная ( длина или разница в значений байтов), то МК отправляет байт ошибки = 0xEE
-
+Передача тестового байта через переходник RS485 - USB от ПК в МК. 
+МК принимает байт и отправляет на него свой ответ - строку 
+"RS485 RX OK"
 */
 
 
@@ -24,12 +19,14 @@ void SysTick_Handler(void){		// прервание от Systick таймера, 
 
 
 int main(void) {
+	uint8_t usart2_rx_byte;
+	uint8_t usart2_tx_array[12] = {"RS485 RX OK\n"};
 
 	RCC_Init();
 	
 	GPIO_Init();
 
-	USART2_Init();
+	RS485_Init(RS485_USART_NUM);
 
 	SysTick_Config(SYSTICK_TIMER_CONST);		// systick period 1 us
 
@@ -40,21 +37,23 @@ int main(void) {
 
 	while(1){
 			
-			Delay_ms(500);
+			Delay_ms(LED_BLINK_300ms);
 			LED1_TOGGLE();
-			Delay_ms(500);
-			LED1_TOGGLE();
-
-			Delay_ms(500);
-			LED2_TOGGLE();
-			Delay_ms(500);
-			LED2_TOGGLE();
-
-			Delay_ms(500);
-			LED3_TOGGLE();
-			Delay_ms(500);
-			LED3_TOGGLE();
 			
+			if( !( usart6_receive_byte( &usart2_rx_byte ) ) ){	// if received byte
+				LED2_ON();
+				Delay_ms(LED_BLINK_300ms);
+				LED2_OFF();
+
+				RS485_TxArray( RS485_USART_NUM, usart2_tx_array, sizeof(usart2_tx_array));	// send this byte back
+
+
+			}
+
+			//RS485_TxArray( RS485_USART_NUM, usart2_tx_array, sizeof(usart2_tx_array));
+			
+			
+
 
 	}	// while(1)
 }	// main()
