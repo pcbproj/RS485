@@ -22,6 +22,9 @@ void GPIO_Init(void){
 бит 2 - кнопка S3. Если кнопка нажата, то бит равен 1. Если кнопка отпущена, то бит равен 0.
 
 */
+
+/******** don't need in this project *********
+
 void BTN_Check(uint16_t *ms_count,	// current ms counter value
 				char *BTN_state)
 {
@@ -70,3 +73,4 @@ void BTN_Check(uint16_t *ms_count,	// current ms counter value
 
 	}
  }
+*/

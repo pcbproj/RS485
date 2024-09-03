@@ -19,8 +19,8 @@ void SysTick_Handler(void){		// прервание от Systick таймера, 
 
 
 int main(void) {
-	uint8_t usart2_rx_byte;
-	uint8_t usart2_tx_array[12] = {"RS485 RX OK\n"};
+	uint8_t rs485_rx_byte;
+	uint8_t rs485_tx_array[12] = {"RS485 RX OK\n"};
 
 	RCC_Init();
 	
@@ -37,23 +37,18 @@ int main(void) {
 
 	while(1){
 			
+		Delay_ms(LED_BLINK_300ms);
+		LED1_TOGGLE();
+		
+		if( !( RX485_RxByte(RS485_USART_NUM, &rs485_rx_byte) ) ){	// if received byte
+			LED2_ON();
 			Delay_ms(LED_BLINK_300ms);
-			LED1_TOGGLE();
-			
-			if( !( usart6_receive_byte( &usart2_rx_byte ) ) ){	// if received byte
-				LED2_ON();
-				Delay_ms(LED_BLINK_300ms);
-				LED2_OFF();
+			LED2_OFF();
 
-				RS485_TxArray( RS485_USART_NUM, usart2_tx_array, sizeof(usart2_tx_array));	// send this byte back
+			RS485_TxArray( RS485_USART_NUM, rs485_tx_array, sizeof(rs485_tx_array));	// send this byte back
 
 
-			}
-
-			//RS485_TxArray( RS485_USART_NUM, usart2_tx_array, sizeof(usart2_tx_array));
-			
-			
-
+		}
 
 	}	// while(1)
 }	// main()

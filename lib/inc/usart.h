@@ -20,22 +20,23 @@ void USART1_Init(void);
 void USART2_Init(void);
 void USART6_Init(void);
 
+// TODO: написать функцию usart_send() чтобы можно было выбирать порт USART
 
 void usart1_send(uint8_t data[], uint8_t len);
 void usart2_send(uint8_t data[], uint8_t len);
 void usart6_send(uint8_t data[], uint8_t len);
 
 /*******
-Функция приема байта по USART2 с таймаутом
+Функция приема байта по USART с таймаутом
 если таймаут не вышел и пришел байт данных, то 
 считанный байт выдает в rx_byte а возвращает USART_OK
 если таймаут вышел, то ф-ия возвращает USART_ERR
-
+номер модуля USART указывается как входной параметр
 *******/
+uint8_t usart_receive_byte(uint8_t usart_number, uint8_t *rx_byte);
+
 uint8_t usart6_receive_byte(uint8_t *rx_byte);
 uint8_t usart2_receive_byte(uint8_t *rx_byte);
-
-uint8_t usart_receive_byte(uint8_t usart_number, uint8_t *rx_byte);
 
 
 #endif

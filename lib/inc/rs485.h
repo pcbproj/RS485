@@ -18,7 +18,7 @@ Module RS485 use module USART6 for communication
 	DE = 0 -> RX mode
 *************************/
 
-// WARNING: при изменении порта DE_PORT требуется переписать ф-ию DE_PinInit(void)
+// WARNING: при изменении порта DE_PORT требуется поправить ф-ию DE_PinInit(void)
 #define DE_PORT				GPIOD
 #define DE_PIN_NUM			7
 
@@ -35,8 +35,8 @@ void DE_PinInit(void);
 
 
 /******
-Функция использует USART n для коммуникации
-требуется уаказть номер USART, через который будет выполняться обмен данными
+Функция использует модуль USART под номером USART_number для коммуникации
+требуется указать номер USART, через который будет выполняться обмен данными
 *******/
 void RS485_TxArray(uint8_t USART_number, uint8_t tx_array[], uint8_t TxByteNumber);
 
@@ -44,8 +44,8 @@ void RS485_TxArray(uint8_t USART_number, uint8_t tx_array[], uint8_t TxByteNumbe
 
 
 /******
-Функция использует USART n для коммуникации
-требуется уаказть номер USART, через который будет выполняться обмен данными
+Функция использует модуль USART под номером USART_number для коммуникации
+требуется указать номер USART, через который будет выполняться обмен данными
 Функция возвращает принятый байт
 *******/
 uint8_t RX485_RxByte(uint8_t USART_number, uint8_t *rx_byte);

@@ -11,8 +11,8 @@
 #define LED2_PIN_NUM	14
 #define LED3_PIN_NUM	15
 
-#define BTN_CHECK_MS			10
-#define	BTN_PRESS_CNT			4 
+//#define BTN_CHECK_MS			10
+//#define	BTN_PRESS_CNT			4 
 
 
 #define LED1_ON()		(LED1_PORT -> BSRR |= 1 << (LED1_PIN_NUM + 16))
