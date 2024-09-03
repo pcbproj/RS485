@@ -68,12 +68,14 @@ void RS485_TxArray(uint8_t USART_number, uint8_t tx_array[], uint8_t TxByteNumbe
 *******/
 // TODO: дописать функцию чтобы ее в main() вызывать можно было.
 uint8_t RX485_RxByte(uint8_t USART_number, uint8_t *rx_byte){
-	uint8_t rx_byte;
 	uint8_t ok_err;
 	DE_Low();	// switch to Rx mode
-	Delay_us(1);	
+	Delay_us(10);	
 	
 	ok_err = usart_receive_byte(USART_number, rx_byte);
-	return ok_err;
 
+	Delay_us(10);
+	DE_High();
+	return ok_err;
+	
 }
