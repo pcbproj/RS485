@@ -48,7 +48,7 @@ void RS485_TxArray(uint8_t USART_number, uint8_t tx_array[], uint8_t TxByteNumbe
 требуется уаказть номер USART, через который будет выполняться обмен данными
 Функция возвращает принятый байт
 *******/
-uint8_t RX485_RxByte(uint8_t USART_number);
+uint8_t RX485_RxByte(uint8_t USART_number, uint8_t *rx_byte);
 
 
 

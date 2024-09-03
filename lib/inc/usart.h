@@ -35,6 +35,8 @@ void usart6_send(uint8_t data[], uint8_t len);
 uint8_t usart6_receive_byte(uint8_t *rx_byte);
 uint8_t usart2_receive_byte(uint8_t *rx_byte);
 
+uint8_t usart_receive_byte(uint8_t usart_number, uint8_t *rx_byte);
+
 
 #endif
 

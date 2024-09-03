@@ -122,6 +122,44 @@ void usart6_send(uint8_t data[], uint8_t len) {
 }
 
 
+uint8_t usart_receive_byte(uint8_t usart_number, uint8_t *rx_byte){
+	uint8_t timer = 0;
+	
+	switch(usart_number){
+	case 1:
+		while(!(USART1->SR & USART_SR_RXNE)){
+			if(timer < 32) timer++;
+			else return USART_ERR;
+		}	
+		*rx_byte = USART1 -> DR;
+		return USART_OK;
+		break;
+	
+	case 2:
+		while(!(USART2->SR & USART_SR_RXNE)){
+			if(timer < 32) timer++;
+			else return USART_ERR;
+		}	
+		*rx_byte = USART2 -> DR;
+		return USART_OK;
+		break;
+	
+	case 6:
+		while(!(USART6->SR & USART_SR_RXNE)){
+			if(timer < 32) timer++;
+			else return USART_ERR;
+		}	
+		*rx_byte = USART6 -> DR;
+		return USART_OK;
+		break;
+	
+	default: 
+		__NOP();
+	}
+	
+	
+}
+
 
 uint8_t usart2_receive_byte(uint8_t *rx_byte){
 	uint8_t timer = 0;
