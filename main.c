@@ -26,7 +26,7 @@ int main(void) {
 	
 	GPIO_Init();
 
-	RS485_Init(RS485_USART_NUM);
+	USART6_Init();
 
 	SysTick_Config(SYSTICK_TIMER_CONST);		// systick period 1 us
 
@@ -37,15 +37,13 @@ int main(void) {
 
 	while(1){
 			
-		Delay_ms(LED_BLINK_300ms);
-		LED1_TOGGLE();
 		
-		if( !( RX485_RxByte(RS485_USART_NUM, &rs485_rx_byte) ) ){	// if received byte
+		if( !( usart6_receive_byte( &rs485_rx_byte) ) ){	// if received byte
 			LED2_ON();
 			Delay_ms(LED_BLINK_300ms);
 			LED2_OFF();
 
-			RS485_TxArray( RS485_USART_NUM, rs485_tx_array, sizeof(rs485_tx_array));	// send this byte back
+			usart6_send(rs485_tx_array, sizeof(rs485_tx_array));	// send this byte back
 
 
 		}
